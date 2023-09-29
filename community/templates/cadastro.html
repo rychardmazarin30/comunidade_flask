@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block body %}
+  <style>
+    .gradient-custom {
+    /* fallback for old browsers */
+    background: #14171A;
+
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #14171A, #16191c);
+
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #14171A, #16191c);
+    }
+  </style>
+    <section class="vh-100 gradient-custom">
+        <div class="container py-5 h-90">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+              <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                <div class="card-body p-5 text-center">
+      
+                  <div class="mb-md-5 mt-md-4 pb-5">
+      
+                    <h2 class="fw-bold mb-2 text-uppercase">Criar Conta</h2>
+                    <p class="text-white-50 mb-5">Insira seus Dados abaixo!</p>
+
+                    <form method="POST" action="">
+                      {{ form_createAccount.csrf_token }}
+                      <fieldset>
+                        <div class="row g-3"> 
+                          <div class="col-sm mb-4">
+                            {% if form_createAccount.nome.errors %}
+                              {{ form_createAccount.nome(class="form-control form-control-lg is-invalid", placeholder="Nome") }}
+                              
+                              <div class="invalid-feedback">
+                                {% for erro in form_createAccount.nome.errors %}
+                                  {{ erro }}
+                                {% endfor %}
+                              </div>
+                              
+                            {% else %}
+                              {{ form_createAccount.nome(class="form-control form-control-lg", placeholder="Nome") }}
+                            {% endif %}
+                            {{ form_createAccount.nome.label(class="form-label",for="typeusernameX") }}
+                          </div>
+                          <div class="col-sm mb-4">
+                            {% if form_createAccount.sobrenome.errors %}
+                              {{ form_createAccount.sobrenome(class="form-control form-control-lg is-invalid", placeholder="Usuário") }}
+                              
+                              <div class="invalid-feedback">
+                                {% for erro in form_createAccount.sobrenome.errors %}
+                                  {{ erro }}
+                                {% endfor %}
+                              </div>
+                              
+                            {% else %}
+                              {{ form_createAccount.sobrenome(class="form-control form-control-lg", placeholder="Sobrenome") }}
+                            {% endif %}
+                            {{ form_createAccount.sobrenome.label(class="form-label",for="typeusernameX") }}
+                          </div>
+                        </div>
+                        <div class="form-outline form-white mb-4">
+                          {% if form_createAccount.username.errors %}
+                            {{ form_createAccount.username(class="form-control form-control-lg is-invalid", placeholder="Usuário") }}
+                            
+                            <div class="invalid-feedback">
+                              {% for erro in form_createAccount.username.errors %}
+                                {{ erro }}
+                              {% endfor %}
+                            </div>
+                            
+                          {% else %}
+                            {{ form_createAccount.username(class="form-control form-control-lg", placeholder="Usuário") }}
+                          {% endif %}
+                          {{ form_createAccount.username.label(class="form-label",for="typeusernameX") }}
+                        </div>
+    
+                        <div class="form-outline form-white mb-4">
+                          {% if form_createAccount.email.errors %}
+                            {{ form_createAccount.email(class="form-control form-control-lg is-invalid", placeholder="name@example.com") }}
+                            
+                            <div class="invalid-feedback">
+                              {% for erro in form_createAccount.email.errors %}
+                                {{ erro }}
+                              {% endfor %}
+                            </div>
+                            
+                          {% else %}
+                            {{ form_createAccount.email(class="form-control form-control-lg", placeholder="name@example.com") }}
+                          {% endif %}
+                          {{ form_createAccount.email.label(class="form-label", for="typeEmailX") }}
+                        </div>
+    
+                        <div class="form-outline form-white mb-4">
+                          {% if form_createAccount.password.errors %}
+                            {{ form_createAccount.password(class="form-control form-control-lg is-invalid", placeholder="Senha") }}
+                            
+                            <div class="invalid-feedback">
+                              {% for erro in form_createAccount.password.errors %}
+                                {{ erro }}
+                              {% endfor %}
+                            </div>
+                            
+                          {% else %}
+                            {{ form_createAccount.password(class="form-control form-control-lg", placeholder="Senha") }}
+                          {% endif %}
+                          {{ form_createAccount.password.label(class="form-label", for="typePasswordX") }}
+                        </div>
+          
+                        <div class="form-outline form-white mb-4">
+                          {% if form_createAccount.confirm_password.errors %}
+                            {{ form_createAccount.confirm_password(class="form-control form-control-lg is-invalid", placeholder="Confirmar Senha") }}
+                            
+                            <div class="invalid-feedback">
+                              {% for erro in form_createAccount.confirm_password.errors %}
+                                {{ erro }}
+                              {% endfor %}
+                            </div>
+                            
+                          {% else %}
+                            {{ form_createAccount.confirm_password(class="form-control form-control-lg", placeholder="Confirmar Senha") }}
+                          {% endif %}
+                          {{ form_createAccount.confirm_password.label(class="form-label", for="typePasswordX")}}
+                        </div>
+                      </fieldset>
+
+                      {{ form_createAccount.submit_button_registerAccount(class="btn btn-outline-dark btn-lg px-5 mb-4 fw-bold", style="background: #ffc107;")}}
+
+                    </form>
+
+                    <div>
+                      <p class="mb-0">Já tem uma conta? <a href="{{ url_for('login')}}" class="text-white-50 fw-bold">Login</a>
+                      </p>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    
+
+{% endblock %}

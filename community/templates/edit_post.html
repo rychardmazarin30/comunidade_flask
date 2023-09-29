@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block head %}
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="{{  url_for('static', filename='posts.css') }}"
+  />
+{% endblock %} 
+
+{% block body %}
+    {% if current_user.is_authenticated %}
+    <br>
+    <hr>
+    <div class="container">
+        <div class="col-md-12 col-lg-12">
+            <article class="post vt-post bg-dark">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-3">
+                        <div class="image p-3 text-white">
+                            <img src="{{ url_for('static', filename='profile_photos/{}'.format(post.autor.foto_perfil)) }}" class="rounded" width="200" />
+                            <p><strong>{{ post.autor.nome }} {{ post.autor.sobrenome }}</strong></p>
+                            {% if post.autor.tech_principal == 'Python' %}
+                            <p>Desenvolvedor(a): <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="45" height="45" /></p>
+                            {% endif %}
+
+                            {% if post.autor.tech_principal == 'JavaScript' %}
+                            <p>Desenvolvedor(a): <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="45" height="45" /></p>
+                            {% endif %}
+
+                            {% if post.autor.tech_principal == 'Ruby' %}
+                            <p>Desenvolvedor(a): <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ruby/ruby-original.svg" width="45" height="45" /></p>
+                            {% endif %}
+
+                            {% if post.autor.tech_principal == 'C#' %}
+                            <p>Desenvolvedor(a): <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" width="45" height="45" /></p>
+                            {% endif %}
+
+                            {% if post.autor.tech_principal == 'C++' %}
+                            <p>Desenvolvedor(a): <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" width="45" height="45" /></p>
+                            {% endif %}
+
+                            {% if post.autor.tech_principal == 'Swift' %}
+                            <p>Desenvolvedor(a): <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/swift/swift-original.svg" width="45" height="45" /></p>
+                            {% endif %}
+
+                            {% if post.autor.tech_principal == 'Java' %}
+                            <p>Desenvolvedor(a): <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" width="45" height="45" /></p>
+                            {% endif %}
+
+                            {% if post.autor.tech_principal == 'Go' %}
+                            <p>Desenvolvedor(a): <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original-wordmark.svg" width="45" height="45" /></p>
+                            {% endif %}
+                            </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-7 col-md-5 col-lg-8">
+                        <div class="caption text-white">
+                            {% if current_user == post.autor %}
+                            <h3>{{ post.titulo }} <small class="text-muted container">Data Criação: {{ post.data_criacao.strftime('%d/%m/%Y') }}</small> </h3> 
+                            <p> {{ post.corpo }} </p>
+                            {% else %}
+                            <h3>{{ post.titulo }} <small class="text-muted container">Data Criação: {{ post.data_criacao.strftime('%d/%m/%Y') }}</small></h3>
+                            <p> {{ post.corpo }} </p>
+                            {% endif %}
+                        </div>
+                </div>
+            </article>
+            
+            <div class="clearfix"></div>
+        </div>
+    {% endif %}
+
+    {% if form %}
+    <br>
+    <div class="container">
+        <div class="text-white" style="border-radius: 1rem;">
+            <h1 >EDITAR POST</h1>
+        </div>
+    </div>
+    <div class="container text-white">
+        <div class="row">
+            
+            <div class="col-md-8 col-md-offset-2">
+                
+                <form action="" method="POST" id="form_editar_post">
+                    {{ form.csrf_token() }}
+                    <div class="form-group">
+                        {{ form.title.label(class="form-label") }}
+                        {{ form.title(class="form-control", placeholder='Título do Post') }}
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        {{ form.body.label(class="form-label") }}
+                        {{ form.body(rows="5", class='form-control', placeholder='Escreva seu Post Aqui...') }}
+                    </div>
+                    <br>
+                    
+                    <div class="form-group">
+                        {{ form.submit_button(class="btn btn-outline-warning") }}
+                        <a class="btn btn-outline-danger" href="{{ url_for('home') }}">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+    <br>
+
+    {% endif %}
+
+
+
+    <div class="modal fade" id="ExcluirPost" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Excluir Post</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Tem certeza que deseja excluir o post?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
+              <form method='POST' action="{{ url_for('excluir_post', post_id=post.id) }}">
+                <button type="submit" class="btn btn-outline-warning" data-bs-dismiss="modal">Excluir</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    
+{% endblock %}

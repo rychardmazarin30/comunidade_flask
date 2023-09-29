@@ -1,0 +1,81 @@
+{% extends 'base.html' %} 
+
+{% block head %}
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="{{  url_for('static', filename='style_profile.css') }}"
+  />
+{% endblock %} 
+
+{% block body %}
+  <div class="container mt-5 d-flex justify-content-center">
+    <div class="card w-50 text-bg-dark p-3">
+      <div class="d-flex align-items-center">
+        <div class="image pe-3">
+          <img
+            src="{{ profile_photo }}"
+            class="rounded"
+            width="200"
+          />
+        </div>
+
+        <div class="ml-3 w-100">
+          <h4 class="mb-0 mt-0">{{ current_user.nome }} {{ current_user.sobrenome }}</h4> 
+          <span>{{ current_user.email }}</span>
+          <div
+            class="p-2 mt-2 bg-secondary d-flex justify-content-between rounded text-white"
+          >
+            <div class="d-flex flex-column">
+              <span class="articles">Principal Tecnologia</span>
+              <span class="number1">
+                {% if current_user.tech_principal == 'Python' %}
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="45" height="45" /></span>
+                {% endif %}
+
+                {% if current_user.tech_principal == 'JavaScript' %}
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="45" height="45" /></span>
+                {% endif %}
+
+                {% if current_user.tech_principal == 'PHP' %}
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" width="45" height="45" /></span>
+                {% endif %}
+
+                {% if current_user.tech_principal == 'Ruby' %}
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ruby/ruby-original.svg" width="45" height="45" /></span>
+                {% endif %}
+
+                {% if current_user.tech_principal == 'C#' %}
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" width="45" height="45" /></span>
+                {% endif %}
+
+                {% if current_user.tech_principal == 'C++' %}
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" width="45" height="45" /></span>
+                {% endif %}
+
+                {% if current_user.tech_principal == 'Swift' %}
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/swift/swift-original.svg" width="45" height="45" /></span>
+                {% endif %}
+
+                {% if current_user.tech_principal == 'Java' %}
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" width="45" height="45" /></span>
+                {% endif %}
+
+                {% if current_user.tech_principal == 'Go' %}
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original-wordmark.svg" width="45" height="45" /></span>
+                {% endif %}
+            </div>
+            <div class="d-flex flex-column">
+              <span class="articles">Posts</span>
+              <span class="number1">{{ current_user.count_posts() }}</span>
+            </div>
+          </div>
+
+          <div class="button mt-2 d-flex flex-row align-items-center">
+            <a class="btn btn-sm btn-danger w-100 m-1" href="{{ url_for('edit_profile') }}">Editar Perfil</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
